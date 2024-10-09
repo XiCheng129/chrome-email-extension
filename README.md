@@ -15,7 +15,7 @@
 
 1. **Clone the repository**
    ```sh
-   git clone https://github.com/yourusername/dump-your-inbox-to-ai.git
+   git clone https://github.com/XiCheng129/chrome-email-extension.git
    ```
 
 2. **Install Dependencies**

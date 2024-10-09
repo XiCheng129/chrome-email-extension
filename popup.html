@@ -12,7 +12,15 @@
       <div id="content">
             <h1>Welcome to Inbox AI</h1>
             <button id="authorize-btn">Authorize Gmail Access</button>
-            <button id="view-emails-btn">View Unread Emails</button> <!-- 新增按钮 -->
+            <button id="view-emails-btn">View Unread Emails</button> <!-- 新增查看邮件按钮 -->
+
+            <div id="custom-rules">
+                  <h3>Custom Classification Rules</h3>
+                  <input type="text" id="custom-keyword" placeholder="Enter keyword for classification" />
+                  <button id="add-rule-btn">Add Rule</button>
+            </div>
+
+            <div id="email-list"></div> <!-- 展示未读邮件 -->
       </div>
       <script src="popup.js"></script>
 </body>

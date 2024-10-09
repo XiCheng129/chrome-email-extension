@@ -1,9 +1,11 @@
 import { pipeline } from './assets/transformers.js';  // 引入 transformers.js
 
-// 加载零样本分类模型
+// 加载零样本分类和摘要生成模型
 let classify;
+let summarize;
 (async () => {
       classify = await pipeline('zero-shot-classification', './assets/transformers.js');
+      summarize = await pipeline('summarization', './assets/transformers.js');
 })();
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
@@ -23,7 +25,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                         .then(async data => {
                               const emails = [];
                               if (data.messages) {
-                                    // 对每封未读邮件进行处理
                                     for (const message of data.messages) {
                                           const messageResponse = await fetch(`https://gmail.googleapis.com/gmail/v1/users/me/messages/${message.id}`, {
                                                 headers: {
@@ -31,20 +32,23 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                                                 }
                                           });
                                           const messageData = await messageResponse.json();
-
-                                          // 获取邮件内容的片段（摘要）
                                           const emailSnippet = messageData.snippet;
 
                                           // 使用 transformers.js 对邮件进行分类
                                           const labels = ["Important", "Normal", "Spam"];
                                           const result = await classify(emailSnippet, labels);
-                                          const classification = result.labels[0]; // 获取最高置信度的标签
+                                          const classification = result.labels[0];
 
-                                          // 添加到邮件列表
+                                          let summary = '';
+                                          if (classification === 'Important') {
+                                                summary = await summarize(emailSnippet);
+                                          }
+
                                           emails.push({
                                                 id: message.id,
                                                 snippet: emailSnippet,
-                                                classification: classification
+                                                classification: classification,
+                                                summary: summary
                                           });
                                     }
                               }
@@ -55,7 +59,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
                               sendResponse({ emails: [] });
                         });
 
-                  // 返回 true 表示 sendResponse 将异步调用
                   return true;
             });
       }

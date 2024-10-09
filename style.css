@@ -5,7 +5,7 @@ body {
 }
 
 #content {
-      max-width: 300px;
+      max-width: 400px;
       margin: 0 auto;
 }
 
@@ -17,8 +17,25 @@ button {
       text-align: center;
       font-size: 16px;
       cursor: pointer;
+      margin: 10px 0;
 }
 
 button:hover {
       background-color: #45a049;
+}
+
+#custom-rules {
+      margin-top: 20px;
+}
+
+.email-item {
+      background: #f9f9f9;
+      border: 1px solid #ddd;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+}
+
+.email-item p {
+      margin: 5px 0;
 }

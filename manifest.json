@@ -10,7 +10,7 @@
             "activeTab"
       ],
       "oauth2": {
-            "client_id": "1081393659803-j2mvvi0gcgjf9s7ovo0t76qbu7lbd3u3.apps.googleusercontent.com",
+            "client_id": "544493374861-c1a8oetf02u2o3387tbte6hrgug73d8h.apps.googleusercontent.com",
             "scopes": [
                   "https://www.googleapis.com/auth/gmail.readonly",
                   "https://www.googleapis.com/auth/gmail.labels"

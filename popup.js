@@ -5,7 +5,16 @@ document.getElementById('authorize-btn').addEventListener('click', function () {
                   return;
             }
             console.log('Access Token:', token);
-            // 这里可以调用 API 或更新界面
             alert('Gmail Access Granted!');
+      });
+});
+
+document.getElementById('view-emails-btn').addEventListener('click', function () {
+      chrome.runtime.sendMessage({ action: "getUnreadEmails" }, function (response) {
+            if (response && response.emails) {
+                  alert(`You have ${response.emails.length} unread emails!`);
+            } else {
+                  console.error('Unable to fetch emails');
+            }
       });
 });
